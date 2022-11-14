@@ -1,0 +1,60 @@
+c[?7l[2J[0mSeaBIOS (version 1.13.0-1ubuntu1.1)
+
+
+iPXE (http://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+07F8CA10+07ECCA10 CA00
+Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
+
+
+Booting from Hard Disk..(THU.CST) os is loading ...
+
+Special kernel symbols:
+  entry  0xc0100036 (phys)
+  etext  0xc0106c5e (phys)
+  edata  0xc011e000 (phys)
+  end    0xc011ef30 (phys)
+Kernel executable memory footprint: 124KB
+ebp:0xc011af38 eip:0xc0100ae9 args:0x00010094 0x00010094 0xc011af68 0xc01000cc 
+    kern/debug/kdebug.c:308: print_stackframe+25
+ebp:0xc011af48 eip:0xc0100deb args:0x00000000 0x00000000 0x00000000 0xc011afb8 
+    kern/debug/kmonitor.c:129: mon_backtrace+14
+ebp:0xc011af68 eip:0xc01000cc args:0x00000000 0xc011af90 0xffff0000 0xc011af94 
+    kern/init/init.c:48: grade_backtrace2+37
+ebp:0xc011af88 eip:0xc01000fa args:0x00000000 0xffff0000 0xc011afb4 0x0000002a 
+    kern/init/init.c:53: grade_backtrace1+42
+ebp:0xc011afa8 eip:0xc010011d args:0x00000000 0xc0100036 0xffff0000 0x0000001d 
+    kern/init/init.c:58: grade_backtrace0+27
+ebp:0xc011afc8 eip:0xc0100147 args:0xc0106c7c 0xc0106c60 0x00000f30 0x00000000 
+    kern/init/init.c:63: grade_backtrace+38
+ebp:0xc011aff8 eip:0xc010008b args:0xc0106e5c 0xc0106e64 0xc0100d67 0xc0106e83 
+    kern/init/init.c:28: kern_init+84
+memory management: buddy_pmm_manager
+e820map:
+  memory: 0009fc00, [00000000, 0009fbff], type = 1.
+  memory: 00000400, [0009fc00, 0009ffff], type = 2.
+  memory: 00010000, [000f0000, 000fffff], type = 2.
+  memory: 07ee0000, [00100000, 07fdffff], type = 1.
+  memory: 00020000, [07fe0000, 07ffffff], type = 2.
+  memory: 00040000, [fffc0000, ffffffff], type = 2.
+---------buddy init end-------
+size = 16384
+buddy_addr = 0xc01212ec
+home_page_addr = 0xc012138c
+-------------------------------
+kernel panic at kern/mm/buddy.c:192:
+    assertion failed: page_ref(p0) == 0 && page_ref(A) == 0 && page_ref(B) == 0
+stack trackback:
+ebp:0xc011aef8 eip:0xc0100ae9 args:0xc0106d28 0xc011af3c 0x000000c0 0x00000002 
+    kern/debug/kdebug.c:308: print_stackframe+25
+ebp:0xc011af28 eip:0xc0100492 args:0xc0107a13 0x000000c0 0xc01079fe 0xc0107b78 
+    kern/debug/panic.c:27: __panic+107
+ebp:0xc011af68 eip:0xc0104bfa args:0xc0107410 0xc0107bf3 0xffff0000 0x00010094 
+    kern/mm/buddy.c:192: buddy_check+352
+ebp:0xc011af88 eip:0xc01036cb args:0x00000000 0xffff0000 0xc011afb4 0x0000002a 
+    kern/mm/pmm.c:480: check_alloc_page+19
+ebp:0xc011afc8 eip:0xc01032c4 args:0xc0106c7c 0xc0106c60 0x00000f30 0x00000000 
+    kern/mm/pmm.c:294: pmm_init+89
+ebp:0xc011aff8 eip:0xc0100090 args:0xc0106e5c 0xc0106e64 0xc0100d67 0xc0106e83 
+    kern/init/init.c:30: kern_init+89
+Welcome to the kernel debug monitor!!
+Type 'help' for a list of commands.
+K> 
