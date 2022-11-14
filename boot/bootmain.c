@@ -33,8 +33,6 @@
 #define SECTSIZE        512
 #define ELFHDR          ((struct elfhdr *)0x10000)      // scratch space
 
-// inb函数作用为从port IO端口读取一字节数据作为该函数的返回值，
-// data变量为输出，使用al寄存器，占位符为%0，port变量为输入，使用dx寄存器，占位符为%1。
 /* waitdisk - wait for disk ready */
 static void
 waitdisk(void) {
@@ -48,9 +46,9 @@ readsect(void *dst, uint32_t secno) {
     // wait for disk to be ready
     waitdisk();
 
-    outb(0x1F2, 1);                         // 读取扇区数目1
-    outb(0x1F3, secno & 0xFF);              // 读取扇区编号
-    outb(0x1F4, (secno >> 8) & 0xFF);       // 发出读取扇区的指令
+    outb(0x1F2, 1);                         // count = 1
+    outb(0x1F3, secno & 0xFF);
+    outb(0x1F4, (secno >> 8) & 0xFF);
     outb(0x1F5, (secno >> 16) & 0xFF);
     outb(0x1F6, ((secno >> 24) & 0xF) | 0xE0);
     outb(0x1F7, 0x20);                      // cmd 0x20 - read sectors
@@ -58,16 +56,8 @@ readsect(void *dst, uint32_t secno) {
     // wait for disk to be ready
     waitdisk();
 
-    // insl函数作用为从port IO端口读取cnt个双字(4Byte)大小的数据到基址为addr的内存中。
-    // 输出变量：addr使用edi，cnt使用ecx；
-    // 输入变量：port使用edx，addr使用edi（0代表输出输入变量的第0个），cnt使用ecx；
-    // 约束：执行过程中内存会发生改变，状态寄存器会改变。
-    // cld为清除方向状态寄存器，即设置df = 0，edi移动方向为内存递增，
-    // repne代表重复下一字符串操作指令若干次，直到ecx = 0或ZF= 1，也即重复insl指令cnt次（ecx值），
-    // insl为从端口edx中输入双字到es:edi所指的内存中，也即addr处。
-    
     // read a sector
-    insl(0x1F0, dst, SECTSIZE / 4);         // 读取数据
+    insl(0x1F0, dst, SECTSIZE / 4);
 }
 
 /* *

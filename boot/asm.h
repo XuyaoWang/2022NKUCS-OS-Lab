@@ -11,7 +11,7 @@
 // P=1、DPL=00、S=1、TYPE=type
 // G=1、D/B=1、L=0、AVL=0、段界限19~16
 // 段基址31~24
-// .byte 
+// .byte
 //      Base 23:16
 //      Type,S,DPL,P
 //      SEGLIM 19:16
@@ -40,4 +40,3 @@
 #define STA_A       0x1     // Accessed
 
 #endif /* !__BOOT_ASM_H__ */
-

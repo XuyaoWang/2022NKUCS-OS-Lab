@@ -3,7 +3,10 @@
 #include <stab.h>
 #include <stdio.h>
 #include <string.h>
+#include <sync.h>
 #include <kdebug.h>
+#include <kmonitor.h>
+#include <assert.h>
 
 #define STACKFRAME_DEPTH 20
 
@@ -247,8 +250,6 @@ print_debuginfo(uintptr_t eip) {
     }
 }
 
-// 在调用该函数时会创建相应堆栈，
-// 通过创建函数时压入的上一级函数返回地址来间接得到当前的eip
 static __noinline uint32_t
 read_eip(void) {
     uint32_t eip;
@@ -290,17 +291,6 @@ read_eip(void) {
  * Note that, the length of ebp-chain is limited. In boot/bootasm.S, before jumping
  * to the kernel entry, the value of ebp has been set to zero, that's the boundary.
  * */
-
-// 堆栈是函数运行时的内存空间，
-// 由高地址向低地址增长，
-// ebp寄存器存储栈底地址，esp寄存器存储栈顶地址，始终指向栈顶元素；
-// 栈从高地址向地址增长。
-// 入栈指令:push S，相当于
-//          R[%esp] = R[%esp] - 4; 
-//          M[R[%esp]] = S
-// 出栈指令：pop D，相当于
-//          D = M[R[%esp]]; 
-//          R[%esp] = R[%esp] + 4
 void
 print_stackframe(void) {
      /* LAB1 YOUR CODE : STEP 1 */
@@ -315,24 +305,5 @@ print_stackframe(void) {
       *           NOTICE: the calling funciton's return addr eip  = ss:[ebp+4]
       *                   the calling funciton's ebp = ss:[ebp]
       */
-    uint32_t ebp=read_ebp();
-    uint32_t eip=read_eip();
-
-    for (size_t i = 0; i < STACKFRAME_DEPTH; i++){
-        if (ebp==0){
-            break;      
-        }
-        cprintf("ebp:0x%08x eip:0x%08x ", ebp, eip);
-        cprintf("args:0x%08x 0x%08x 0x%08x 0x%08x", *(uint32_t *)(ebp + 8), 
-                *(uint32_t *)(ebp + 12), *(uint32_t *)(ebp + 16), *(uint32_t *)(ebp + 20));
-        cprintf("\n");
-        print_debuginfo(eip - 1);
-   
-        eip = *(uint32_t *)(ebp + 4);
-        ebp = *(uint32_t *)(ebp);
-
-        
-    }
-    
 }
 
