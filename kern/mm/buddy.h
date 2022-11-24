@@ -1,8 +1,8 @@
-//
-// Created by yao on 11/13/22.
-//
+#ifndef  __KERN_MM_BUDDY_PMM_H__
+#define  __KERN_MM_BUDDY_PMM_H__
 
-#ifndef U_CORE_BUDDY_H
-#define U_CORE_BUDDY_H
+#include <pmm.h>
 
-#endif //U_CORE_BUDDY_H
+extern const struct pmm_manager buddy_pmm_manager;
+
+#endif /* ! __KERN_MM_DEFAULT_PMM_H__ */
