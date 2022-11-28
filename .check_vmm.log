@@ -9,7 +9,7 @@ Booting from Hard Disk..(THU.CST) os is loading ...
 
 Special kernel symbols:
   entry  0xc0100036 (phys)
-  etext  0xc010b12f (phys)
+  etext  0xc010b0d3 (phys)
   edata  0xc012e000 (phys)
   end    0xc0131164 (phys)
 Kernel executable memory footprint: 197KB
@@ -23,9 +23,9 @@ ebp:0xc012af88 eip:0xc0100111 args:0x00000000 0xffff0000 0xc012afb4 0x0000002a
     kern/init/init.c:63: grade_backtrace1+42
 ebp:0xc012afa8 eip:0xc0100134 args:0x00000000 0xc0100036 0xffff0000 0x0000001d 
     kern/init/init.c:68: grade_backtrace0+27
-ebp:0xc012afc8 eip:0xc010015e args:0xc010b15c 0xc010b140 0x00003164 0x00000000 
+ebp:0xc012afc8 eip:0xc010015e args:0xc010b0fc 0xc010b0e0 0x00003164 0x00000000 
     kern/init/init.c:73: grade_backtrace+38
-ebp:0xc012aff8 eip:0xc010008b args:0xc010b33c 0xc010b344 0xc0100d7e 0xc010b363 
+ebp:0xc012aff8 eip:0xc010008b args:0xc010b2dc 0xc010b2e4 0xc0100d7e 0xc010b303 
     kern/init/init.c:33: kern_init+84
 memory management: default_pmm_manager
 e820map:
@@ -47,21 +47,22 @@ PDE(001) fac00000-fb000000 00400000 -rw
 --------------------- END ---------------------
 use SLOB allocator
 kmalloc_init() succeeded!
-kernel panic at kern/mm/vmm.c:232:
-    assertion failed: nr_free_pages_store == nr_free_pages()
+check_vma_struct() succeeded!
+page fault at 0x00000100: K/W [no page found].
+check_pgfault() succeeded!
+check_vmm() succeeded.
+kernel panic at kern/process/proc.c:353:
+    create init_main failed.
+
 stack trackback:
-ebp:0xc012aee8 eip:0xc0100b00 args:0xc010b208 0xc012af2c 0x000000e8 0xc0311008 
+ebp:0xc012af68 eip:0xc0100b00 args:0xc010b1a8 0xc012afac 0x00000161 0xc01099b1 
     kern/debug/kdebug.c:308: print_stackframe+25
-ebp:0xc012af18 eip:0xc01004a9 args:0xc010bad0 0x000000e8 0xc010babb 0xc010bb3c 
+ebp:0xc012af98 eip:0xc01004a9 args:0xc010d525 0x00000161 0xc010d5c6 0x00007ccf 
     kern/debug/panic.c:27: __panic+107
-ebp:0xc012af88 eip:0xc0103c59 args:0x0021ff00 0x00a1ff00 0x00201100 0x00212000 
-    kern/mm/vmm.c:232: check_vma_struct+1204
-ebp:0xc012afb8 eip:0xc0103762 args:0xc012b560 0x00000100 0xc012aff8 0xc010009f 
-    kern/mm/vmm.c:167: check_vmm+22
-ebp:0xc012afc8 eip:0xc0103748 args:0xc010b15c 0xc010b140 0x00003164 0x00000000 
-    kern/mm/vmm.c:159: vmm_init+14
-ebp:0xc012aff8 eip:0xc010009f args:0xc010b33c 0xc010b344 0xc0100d7e 0xc010b363 
-    kern/init/init.c:40: kern_init+104
+ebp:0xc012afc8 eip:0xc010a254 args:0xc010b0fc 0xc010b0e0 0x00003164 0x00000000 
+    kern/process/proc.c:353: proc_init+295
+ebp:0xc012aff8 eip:0xc01000a4 args:0xc010b2dc 0xc010b2e4 0xc0100d7e 0xc010b303 
+    kern/init/init.c:41: kern_init+109
 Welcome to the kernel debug monitor!!
 Type 'help' for a list of commands.
 K> 
